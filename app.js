@@ -13,13 +13,22 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+// Connect to DB and define models
 require('./lib/connectMongoose');
+require('./models/Anuncio');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+/**
+ * API routes
+ */
+app.use('/apiv1/anuncios', require('./routes/apiv1/anuncios'));
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
