@@ -1,0 +1,13 @@
+
+{
+    "usuarios": [
+      {
+        "nombre": "Antonio ortega",
+        "email": "antonio.ortega@qmail.com",
+        "clave": "123456"
+  }, {
+      "nombre": "Javier Fernandez",
+      "email": "javier.fernandez@qmail.com",
+      "clave": "abcdef"
+  } ]
+  }
