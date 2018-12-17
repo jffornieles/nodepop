@@ -2,12 +2,12 @@
 {
     "usuarios": [
       {
-        "nombre": "Antonio ortega",
-        "email": "antonio.ortega@qmail.com",
+        "nombre": "Usuario_1",
+        "email": "usuario_1@qmail.com",
         "clave": "123456"
   }, {
-      "nombre": "Javier Fernandez",
-      "email": "javier.fernandez@qmail.com",
+      "nombre": "Usuario_2",
+      "email": "usuario_2@qmail.com",
       "clave": "abcdef"
   } ]
   }

@@ -7,33 +7,21 @@ const mongoose = require('mongoose');
 const Anuncio = require('./models/Anuncio');
 const Usuario = require('./models/Usuario');
 
-/**
- * Connect to DB
- */
-async function connectDB() {
-    const db = require('./lib/connectMongoose')
-    return db;
-}
-
-/**
- * Drop to DB
- */
-async function dropDB() {
-    console.log('Dropped DB');
-    return mongoose.connection.db.dropDatabase();
-}
 
 /**
  * Read file
  * @param {Object} file 
  */
 function readFile(file) {
-    console.log('Read File', file);
-    try {
-        return fs.readFileSync(file);
-    } catch (err) {
-        throw new Error(`Error to read file ${file}, ${err}`);
-    }    
+
+    return new Promise((resolve, reject) => {
+        fs.readFile(file,'utf8', (err, data) => {
+            if (err) {
+                reject(new Error(`Error to read file ${file}, ${err}`));
+            }
+            resolve();
+        });
+    });
 }
 
 /**
@@ -41,55 +29,66 @@ function readFile(file) {
  * @param {Object} fileReaded 
  */
 function parseFile(fileReaded) {
-    console.log('Parse file');
-    try {
-        return JSON.parse(fileReaded);    
-    } catch (err) {
-        throw new Error(`Error to parse file ${fileReaded}, ${err}`);
-    }
+
+    return new Promise((resolve, reject) => {
+        if (!fileReaded) {
+            reject (new Error(`Error to parse file ${err}`));
+        }
+        resolve(JSON.parse(fileReaded));
+    });
 }
 
 /**
- * Save DB
+ * 
  * @param {Object} fileParsed 
+ * @param {String} model 
  */
-async function saveDB(fileParsed) {
+function saveDB(fileParsed, model) {
 
-    if (fileParsed.anuncios) {
-        for (const anuncio of fileParsed.anuncios) {
-            let anuncioSave = new Anuncio();
-            anuncioSave.nombre = anuncio.nombre;
-            anuncioSave.venta = anuncio.venta;
-            anuncioSave.precio = anuncio.precio;
-            anuncioSave.foto = anuncio.foto;
-            anuncioSave.tags = anuncio.tags;
+    return new Promise((resolve, reject) => {
         
-            await fileSave(anuncioSave);
-        }
-    } else {
-        for (const usuario of fileParsed.usuarios) {
-            let usuarioSave = new Usuario();
-            usuarioSave.nombre = usuario.nombre;
-            usuarioSave.email = usuario.email;
-            usuarioSave.clave = usuario.clave;
+        const datos = fileParsed[model];
         
-            await fileSave(usuarioSave);
+        if (datos.length === 0){
+            reject (new Error(`Sin datos para ${model}`));
         }
-    }
-    console.log('Save file');
-    return fileParsed;    
+
+        if (fileParsed.anuncios) {
+            for (const anuncio of fileParsed.anuncios) {
+                let anuncioSave = new Anuncio();
+                anuncioSave.nombre = anuncio.nombre;
+                anuncioSave.venta = anuncio.venta;
+                anuncioSave.precio = anuncio.precio;
+                anuncioSave.foto = anuncio.foto;
+                anuncioSave.tags = anuncio.tags;
+                anuncioSave.save((err, data) => {
+                    if (err) {
+                        reject(error);
+                    }
+                    resolve();
+                });      
+            }
+        } else {
+            for (const usuario of fileParsed.usuarios) {
+                let usuarioSave = new Usuario();
+                usuarioSave.nombre = usuario.nombre;
+                usuarioSave.email = usuario.email;
+                usuarioSave.clave = usuario.clave;
+                usuarioSave.save((err, data) => {
+                    if (err) {
+                        reject(error);
+                    }
+                    resolve();
+                });      
+            }
+        }
+    });  
 }
+
 
 /**
- * File save
- * @param {Object} fileSave 
+ * Main function
  */
-async function fileSave(fileSave) {
-    return fileSave.save();    
-}
-
-
-
 async function main() {
     
     const fileAnuncios = './anuncios.json';
@@ -97,35 +96,44 @@ async function main() {
     let fileReaded;
     let fileParsed;
 
-    await connectDB();
-    
-    await dropDB();
+    try {
+        // Connect to DB
+        await require('./lib/connectMongoose');
+        console.log('Connect to DB......................Ok');
 
-    /**
-     * Reading, parsing and saving Anuncios file
-     */
-    fileReaded = readFile(fileAnuncios);        
-    fileParsed = parseFile(fileReaded);        
-    await saveDB(fileParsed);
+        // Drop to DB
+        await mongoose.connection.db.dropDatabase();
+        console.log('Drop DB............................OK');
 
-    /**
-     * Reading, parsing and saving Usuarios file
-     */
-    fileReaded = readFile(fileUsuarios);        
-    fileParsed = parseFile(fileReaded);        
-    await saveDB(fileParsed);    
-    
-    return 'Initialized Data Base!!';
+        
+        // Reading, parsing and saving Anuncios file         
+        console.log('---- Reading, parsing and saving Anuncios file ----');
+        fileReaded = await readFile(fileAnuncios);
+        console.log(`File ${fileAnuncios} readed........Ok`);        
+        fileParsed = await parseFile(fileReaded);        
+        console.log(`File ${fileAnuncios} parsed........Ok`);        
+        await saveDB(fileParsed, 'anuncios');
+        console.log(`File ${fileAnuncios} saved.........Ok`);        
+
+        
+        // Reading, parsing and saving Usuarios file
+        console.log('---- Reading, parsing and saving Usuarios file ----');
+        fileReaded = await readFile(fileUsuarios);        
+        console.log(`File ${fileUsuarios} readed........Ok`);
+        fileParsed = await parseFile(fileReaded);        
+        console.log(`File ${fileUsuarios} parsed........Ok`);
+        await saveDB(fileParsed, 'usuarios');    
+        console.log(`File ${fileUsuarios} saved.........Ok`);
+
+        console.log('Initialized Data Base!!!!'); 
+        process.exit(0);
+        
+    } catch (err) {
+        console.log('Error:',err);
+        process.exit(1);
+    }
     
 }
 
-main()
-    .then(message => {
-        console.log(message); 
-        process.exit(0);
-    })
-    .catch(err => {
-        console.log(err);
-        process.exit(1);
-    })
+main();
 
