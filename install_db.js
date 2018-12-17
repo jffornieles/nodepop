@@ -34,7 +34,12 @@ function parseFile(fileReaded) {
         if (!fileReaded) {
             reject (new Error(`Error to parse file`));
         }
-        resolve(JSON.parse(fileReaded));
+
+        try {
+            resolve(JSON.parse(fileReaded));
+        } catch (err) {
+            reject(err);
+        }
     });
 }
 
