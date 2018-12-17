@@ -19,7 +19,7 @@ function readFile(file) {
             if (err) {
                 reject(new Error(`Error to read file ${file}, ${err}`));
             }
-            resolve();
+            resolve(data);
         });
     });
 }
@@ -32,7 +32,7 @@ function parseFile(fileReaded) {
 
     return new Promise((resolve, reject) => {
         if (!fileReaded) {
-            reject (new Error(`Error to parse file ${err}`));
+            reject (new Error(`Error to parse file`));
         }
         resolve(JSON.parse(fileReaded));
     });
@@ -50,7 +50,7 @@ function saveDB(fileParsed, model) {
         const datos = fileParsed[model];
         
         if (datos.length === 0){
-            reject (new Error(`Sin datos para ${model}`));
+            reject (new Error(`No data in ${model}`));
         }
 
         if (fileParsed.anuncios) {
@@ -63,7 +63,7 @@ function saveDB(fileParsed, model) {
                 anuncioSave.tags = anuncio.tags;
                 anuncioSave.save((err, data) => {
                     if (err) {
-                        reject(error);
+                        reject(err);
                     }
                     resolve();
                 });      
@@ -76,7 +76,7 @@ function saveDB(fileParsed, model) {
                 usuarioSave.clave = usuario.clave;
                 usuarioSave.save((err, data) => {
                     if (err) {
-                        reject(error);
+                        reject(err);
                     }
                     resolve();
                 });      
