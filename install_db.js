@@ -4,6 +4,7 @@
 
 const fs = require('fs');
 const mongoose = require('mongoose');
+const db = require('./lib/connectMongoose');
 const Anuncio = require('./models/Anuncio');
 const Usuario = require('./models/Usuario');
 
@@ -54,18 +55,13 @@ function saveDB(fileParsed, model) {
         
         const datos = fileParsed[model];
         
-        if (datos.length === 0){
+        if (datos.length === 0 || !datos){
             reject (new Error(`No data in ${model}`));
         }
 
         if (fileParsed.anuncios) {
             for (const anuncio of fileParsed.anuncios) {
-                let anuncioSave = new Anuncio();
-                anuncioSave.nombre = anuncio.nombre;
-                anuncioSave.venta = anuncio.venta;
-                anuncioSave.precio = anuncio.precio;
-                anuncioSave.foto = anuncio.foto;
-                anuncioSave.tags = anuncio.tags;
+                let anuncioSave = new Anuncio(anuncio);
                 anuncioSave.save((err, data) => {
                     if (err) {
                         reject(err);
@@ -75,10 +71,7 @@ function saveDB(fileParsed, model) {
             }
         } else {
             for (const usuario of fileParsed.usuarios) {
-                let usuarioSave = new Usuario();
-                usuarioSave.nombre = usuario.nombre;
-                usuarioSave.email = usuario.email;
-                usuarioSave.clave = usuario.clave;
+                let usuarioSave = new Usuario(usuario);
                 usuarioSave.save((err, data) => {
                     if (err) {
                         reject(err);
@@ -102,8 +95,6 @@ async function main() {
     let fileParsed;
 
     try {
-        // Connect to DB
-        await require('./lib/connectMongoose');
         console.log('Connect to DB......................Ok');
 
         // Drop to DB
@@ -139,6 +130,8 @@ async function main() {
     }
     
 }
+db.once('open', () => {
+    main();
+});
 
-main();
 
