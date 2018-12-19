@@ -1,25 +1,22 @@
 
-'use strict';
+'use strict'
 
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 
-const Usuario = require('../../models/Usuario');
+const Usuario = require('../../models/Usuario')
 
 /**
  * GET usuarios
  */
 router.get('/', (req, res, next) => {
+  Usuario.find().exec((err, usuarios) => {
+    if (err) {
+      return next(err)
+    }
 
-    Usuario.find().exec((err, usuarios) => {
-        if (err) {
-            return next(err);
-        }
+    res.json(usuarios)
+  })
+})
 
-        res.json(usuarios);
-    });
-    
-});
-
-
-module.exports = router;
+module.exports = router
