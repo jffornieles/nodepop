@@ -2,7 +2,6 @@
 'use strict'
 
 const fs = require('fs')
-const mongoose = require('mongoose')
 const db = require('./lib/connectMongoose')
 const Anuncio = require('./models/Anuncio')
 const Usuario = require('./models/Usuario')
@@ -87,11 +86,11 @@ async function main () {
   let fileParsed
 
   try {
-    console.log('Connect to DB......................Ok')
-
-    // Drop to DB
-    await mongoose.connection.db.dropDatabase()
-    console.log('Drop DB............................OK')
+    // Remove models
+    await Anuncio.deleteMany()
+    console.log('Remove Anuncio.....................OK')
+    await Usuario.deleteMany()
+    console.log('Remove Usuario.....................OK')
 
     // Reading, parsing and saving Anuncios file
     console.log('---- Reading, parsing and saving Anuncios file ----')
