@@ -6,6 +6,10 @@ const router = express.Router()
 
 const Anuncio = require('../../models/Anuncio')
 
+const jwtAuthMiddleware = require('../../lib/jwtAuthMiddleware')
+
+router.use(jwtAuthMiddleware())
+
 /**
  * Obtenemos las distintas combinaciones para filtrar por precio:
  * xx-xx -> buscaremos por precio entre ambos valores.

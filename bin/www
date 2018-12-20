@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 
-require('dontenv').config();
+require('dotenv').config();
 var app = require('../app');
 var debug = require('debug')('nodepop:server');
 var http = require('http');
