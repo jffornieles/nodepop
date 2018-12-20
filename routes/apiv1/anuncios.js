@@ -93,6 +93,14 @@ router.get('/', async (req, res, next) => {
 })
 
 /**
+ * GET /anuncios/tags
+ * Obtenemos los tags válidos
+ */
+router.get('/tags', (req, res, next) => {
+  res.json(Anuncio.getTags())
+})
+
+/**
  * GET /anuncios/:id
  */
 router.get('/:id', async (req, res, next) => {
@@ -105,5 +113,6 @@ router.get('/:id', async (req, res, next) => {
     return next(err)
   }
 })
+
 
 module.exports = router
