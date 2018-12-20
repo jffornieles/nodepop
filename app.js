@@ -16,6 +16,7 @@ app.set('view engine', 'ejs')
 // Connect to DB and define models
 require('./lib/connectMongoose')
 require('./models/Anuncio')
+require('./models/Usuario')
 
 app.use(logger('dev'))
 app.use(express.json())
