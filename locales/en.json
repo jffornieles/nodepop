@@ -1,0 +1,10 @@
+{
+    "ERR_INV_CRE": "Invalid credentials",
+    "ERR_JWT_SIGN": "Error signing the Token",
+    "ERR_REG_USER": "User registration error",
+    "ERR_AUTH": "User Authentication Error",
+    "ERR_NAME": "The user name must be provided",
+    "ERR_EMAIL": "Email address must be provided",
+    "ERR_PASS": "The password must be provided",
+    "ERR_NO_TOKEN": "The token must be provided"
+}

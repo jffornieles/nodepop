@@ -47,7 +47,7 @@ function filtroPrecio (precio) {
   // Si llegamos a este punto es que el formato no es correcto
   // por lo que buscamos por precio mayor o igual a cero para que muestre
   // todos los anuncios
-  console.log('Formato incorrecto!!')
+  console.log('Formato incorrecto!!', precio)
   return { '$gte': 0 }
 }
 
@@ -113,6 +113,5 @@ router.get('/:id', async (req, res, next) => {
     return next(err)
   }
 })
-
 
 module.exports = router

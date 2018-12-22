@@ -5,9 +5,9 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt-nodejs')
 
 const usuarioSchema = mongoose.Schema({
-  nombre: { type: String, require: true },
-  email: { type: String, requiere: true, index: true },
-  clave: { type: String, requiere: true }
+  nombre: { type: String, required: true },
+  email: { type: String, requiered: true, index: true },
+  clave: { type: String, requiered: true }
 })
 
 usuarioSchema.pre('save', function (next) {

@@ -1,0 +1,10 @@
+{
+    "ERR_INV_CRE": "Credenciales incorrectas",
+    "ERR_JWT_SIGN": "Error al firmar el Token",
+    "ERR_REG_USER": "Error en el registro de usuario",
+    "ERR_AUTH": "Error en autenticación de usuario",
+    "ERR_NAME": "Debe indicar un nombre de usuario",
+    "ERR_EMAIL": "Debe indicar una dirección de correo electrónico",
+    "ERR_PASS": "Debe indicar una clave",
+    "ERR_NO_TOKEN": "No se proporciona ningún token"
+}
