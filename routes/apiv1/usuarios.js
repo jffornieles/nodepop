@@ -36,13 +36,12 @@ router.post('/authenticate', async (req, res, next) => {
     const password = req.body.clave
 
     const usuario = await Usuario.findOne({ email: email }).exec()
-
-    const igualPassword = await Usuario.bcryptCompare(password, usuario.clave)
-
     if (!usuario) {
       res.json({ succes: false, error: 'Invalid credentials' })
       return
     }
+
+    const igualPassword = await Usuario.bcryptCompare(password, usuario.clave)
     if (!igualPassword) {
       res.json({ succes: false, error: 'Invalid credentials' })
       return
