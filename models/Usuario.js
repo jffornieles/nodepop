@@ -2,11 +2,40 @@
 'use strict'
 
 const mongoose = require('mongoose')
+const bcrypt = require('bcrypt-nodejs')
 
 const usuarioSchema = mongoose.Schema({
-  nombre: { type: String, required: true },
-  email: { type: String, index: true, required: true },
-  clave: { type: String, required: true }
+  nombre: { type: String, require: true },
+  email: { type: String, requiere: true, index: true },
+  clave: { type: String, requiere: true }
 })
+
+usuarioSchema.pre('save', function (next) {
+  let usuario = this
+
+  bcrypt.genSalt(parseInt(process.env.BCRYPT_SALT_ROUNDS), (err, salt) => {
+    if (err) {
+      return next(err)
+    }
+    bcrypt.hash(usuario.clave, salt, null, (err, hash) => {
+      if (err) {
+        return next(err)
+      }
+      usuario.clave = hash
+      next()
+    })
+  })
+})
+
+usuarioSchema.statics.bcryptCompare = (passwordIntroducido, passwordLeido) => {
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(passwordIntroducido, passwordLeido, (err, result) => {
+      if (err) {
+        reject(err)
+      }
+      resolve(result)
+    })
+  })
+}
 
 module.exports = mongoose.model('Usuario', usuarioSchema)

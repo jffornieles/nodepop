@@ -12,10 +12,11 @@ const Usuario = require('../../models/Usuario')
  */
 router.post('/', async (req, res, next) => {
   try {
-    const usuario = new Usuario()
-    usuario.nombre = req.body.nombre
-    usuario.email = req.body.email
-    usuario.clave = req.body.password
+    const usuario = new Usuario({
+      nombre: req.body.nombre,
+      email: req.body.email,
+      clave: req.body.clave
+    })
 
     const usuarioSaved = await usuario.save()
     res.json({ succes: true, usuario: usuarioSaved })
@@ -32,14 +33,17 @@ router.post('/', async (req, res, next) => {
 router.post('/authenticate', async (req, res, next) => {
   try {
     const email = req.body.email
-    const password = req.body.password
+    const password = req.body.clave
+
     const usuario = await Usuario.findOne({ email: email }).exec()
+
+    const igualPassword = await Usuario.bcryptCompare(password, usuario.clave)
 
     if (!usuario) {
       res.json({ succes: false, error: 'Invalid credentials' })
       return
     }
-    if (password !== usuario.clave) {
+    if (!igualPassword) {
       res.json({ succes: false, error: 'Invalid credentials' })
       return
     }
