@@ -12,8 +12,9 @@ const anuncioSchema = mongoose.Schema({
   tags: { type: [String], enum: tagsValidos, index: true }
 })
 
-anuncioSchema.statics.getTags = () => {
-  return { tags: tagsValidos }
+anuncioSchema.statics.getTags = function () {
+  const query = Anuncio.distinct('tags')
+  return query.exec()
 }
-
-module.exports = mongoose.model('Anuncio', anuncioSchema)
+const Anuncio = mongoose.model('Anuncio', anuncioSchema)
+module.exports = Anuncio

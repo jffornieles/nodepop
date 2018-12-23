@@ -96,8 +96,16 @@ router.get('/', async (req, res, next) => {
  * GET /anuncios/tags
  * Obtenemos los tags válidos
  */
-router.get('/tags', (req, res, next) => {
-  res.json(Anuncio.getTags())
+router.get('/tags', async (req, res, next) => {
+  try {
+    const tags = await Anuncio.getTags()
+    res.json({
+      success: true,
+      result: tags
+    })
+  } catch (err) {
+    next(err)
+  }
 })
 
 /**
