@@ -4,25 +4,12 @@
 const express = require('express')
 const router = express.Router()
 const jwt = require('jsonwebtoken')
-const i18n = require('i18n')
 const Usuario = require('../../models/Usuario')
-
-/**
- * Capturamos idioma y configuramos la librería i18n
- * @param {*} req
- * @param {*} res
- */
-function i18nConfigure (req, res) {
-  const lang = req.query.lang || req.body.lang || 'es'
-  i18n.setLocale(res, lang)
-}
 
 /**
  * POST /usuarios
  */
 router.post('/', async (req, res, next) => {
-  i18nConfigure(req, res)
-
   try {
     if (!req.body.nombre) {
       res.json({ succes: false, error: res.__('ERR_NAME') })
@@ -58,8 +45,6 @@ router.post('/', async (req, res, next) => {
  */
 
 router.post('/authenticate', async (req, res, next) => {
-  i18nConfigure(req, res)
-
   try {
     const email = req.body.email
     const password = req.body.clave

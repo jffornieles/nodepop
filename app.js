@@ -12,7 +12,8 @@ var app = express()
 
 i18n.configure({
   locales: ['en', 'es'],
-  directory: path.join(__dirname, 'locales')
+  directory: path.join(__dirname, 'locales'),
+  defaultLocale: 'es'
 })
 
 app.use(i18n.init)
