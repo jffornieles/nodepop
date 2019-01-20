@@ -18,9 +18,9 @@ Se debe especificar el idioma del usuario en cada petición (se captura de `Acc
 1. [Instalación](#instalacion)
 2. [Clonar repositorio e instalar dependencias](#clonar)
 3. [Inicialización de la base de datos](#iniciobd)
-4. [Modelo de datos](#modelodatos)
-5. [Entornos de ejecución](#entornosejecucion)
-6. [Especificar las variables de entorno](#variablesentorno)
+4. [Especificar las variables de entorno](#variablesentorno)
+5. [Modelo de datos](#modelodatos)
+6. [Entornos de ejecución](#entornosejecucion)
 7. [Guia de estilo](#estilo)
 
 
@@ -61,6 +61,10 @@ Al ejecutar este comando:
 Si ya se ha creado con anterioridad la base de datos **nodepop** con ambas colecciones, esta ejecución borrará todos los documentos de **anuncios** y **usuarios** y los volverá a cargar con los datos de muestra.
 
 > **Nota**: los datos de muestra están en los ficheros [`anuncios.json`](./anuncios.json) y [`usuarios.json`](./usuarios.json) respectivamente. Se pueden modificar ambos ficheros para añadir/quitar documentos tanto de anuncios como de usuarios, siempre que se respete la estructura que dicta el modelo.
+
+
+## <a id="variablesentorno"></a>Especificar las variables de entorno
+En el directorio de la aplicación se puede encontrar un fichero `.env.example`. **Renombrar dicho fichero a `.env`** y configurar las *variables de entorno* con los valores que utilizará la aplicación.
 
 ## <a id="modelodatos"></a>Modelo de datos.
 La base de datos `mongoDB` en la que se alojará la información de la API seguirá el modelo de datos para las colecciones:
@@ -124,10 +128,6 @@ Ejecutar en línea de comandos desde el directorio de la aplicación:
 ```shell
 nodepop/$ npm run cluster
 ```
-
-
-## <a id="variablesentorno"></a>Especificar las variables de entorno
-En el directorio de la aplicación se puede encontrar un fichero `.env.example`. **Renombrar dicho fichero a `.env`** y configurar las *variables de entorno* con los valores que utilizará la aplicación.
 
 
 ## <a id="estilo"></a>Guia de estilo 
