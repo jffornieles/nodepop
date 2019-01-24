@@ -1,13 +1,29 @@
 
 # NODEPOP
 
-**Nodepop** es una app de venta de artículos de segunda mano, proporciona anuncios con información sobre articulos a los usuarios que estén autenticados.
+**Nodepop** es una app de venta de artículos de segunda mano, proporciona anuncios con información sobre articulos a los usuarios que estén autenticados. 
 
 **Operaciones que realiza el API en su primera versión**:
-- Registro (nombre, email, contraseña)
+- Registro (nombre, email, contraseña). 
 - Autenticación (email y contraseña). El acceso al API se hará con autenticación, usando JWT (JSON Web Token)
 - Consulta de anuncios paginada para usuarios autenticados. Con filtros por tag, tipo de anuncio (venta o búsqueda), rango de precio (preciomínimo y precio máximo) y nombre de artículo (que comience por el dato buscado)
 - Consulta de tags existentes
+
+## Práctica DevOps
+Para la evaluación de esta práctica se puede acceder a las siguientes direcciones:
+
+**<https://www.jffornieles.tk>**  
+Accederá a la web estática hecha a partir de una plantilla de [Start Bootstrap](https://startbootstrap.com).
+
+**<https://nodepop.jffornieles.tk>**  
+En esta URL está desplegada la app Nodepop. Para poder realizar las pruebas pertinentes de los métodos GET y POST se puede acceder a la siguiente URL donde se encuentra la documentación elaborada con Postman:
+https://documenter.getpostman.com/view/5941716/RzthQrAG
+
+Para comprobar que **nginx** sirve los estáticos gracias a la cabecera personalizada **`X-Owner: jffornieles`** se puede acceder a alguna de las siguientes URLs:  
+**https://nodepop.jffornieles.tk/images/anuncios/ipadpro.jpeg** 
+**https://nodepop.jffornieles.tk/images/anuncios/ps4.jpeg**
+
+
 
 
 ## Internacionalización
