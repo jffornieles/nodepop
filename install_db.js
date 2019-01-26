@@ -1,10 +1,12 @@
 
 'use strict'
 
+require('dotenv').config()
 const fs = require('fs')
 const db = require('./lib/connectMongoose')
 const Anuncio = require('./models/Anuncio')
 const Usuario = require('./models/Usuario')
+
 
 /**
  * Read file
