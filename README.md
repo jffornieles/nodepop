@@ -10,7 +10,6 @@
 - Consulta de tags existentes
 
 
-
 ## Internacionalización
 Se debe especificar el idioma del usuario en cada petición (se captura de `Accept-Language`). La API devolverá traducidos los mensajes de errror que debe mostrar al usuario en su idioma (solo disponible en esta primera versión en inglés y español). Si no se especifica el idioma, por defecto se establecerá el español. 
 
