@@ -6,11 +6,11 @@ const router = express.Router()
 
 const Anuncio = require('../../models/Anuncio')
 
-const jwtAuthMiddleware = require('../../lib/jwtAuthMiddleware')
+// const jwtAuthMiddleware = require('../../lib/jwtAuthMiddleware')
 
 const { filtroPrecio } = require('../../lib/utils')
 
-router.use(jwtAuthMiddleware())
+// router.use(jwtAuthMiddleware())
 
 /**
  * GET /anuncios

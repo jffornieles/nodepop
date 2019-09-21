@@ -7,7 +7,6 @@ const db = require('./lib/connectMongoose')
 const Anuncio = require('./models/Anuncio')
 const Usuario = require('./models/Usuario')
 
-
 /**
  * Read file
  * @param {Object} file

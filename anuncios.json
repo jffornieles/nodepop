@@ -4,7 +4,7 @@
       {
         "nombre": "Bicicleta",
         "venta": true,
-        "precio": 230.15,
+        "precio": 230.00,
         "foto": "images/anuncios/bicicleta.jpeg",
         "tags": [ "lifestyle", "motor"]
      }, 

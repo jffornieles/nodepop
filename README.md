@@ -9,27 +9,6 @@
 - Consulta de anuncios paginada para usuarios autenticados. Con filtros por tag, tipo de anuncio (venta o búsqueda), rango de precio (preciomínimo y precio máximo) y nombre de artículo (que comience por el dato buscado)
 - Consulta de tags existentes
 
-## Práctica DevOps
-Para la evaluación de esta práctica se puede acceder a las siguientes direcciones:
-
-**<https://www.jffornieles.tk>**  
-Se accederá a la web estática hecha a partir de una plantilla de [Start Bootstrap](https://startbootstrap.com). Tamién se puede acceder a través de la IP del servidor: 13.59.124.206
-
-**<https://nodepop.jffornieles.tk>**  
-En esta URL está desplegada la app Nodepop, en concreto en las URLs:
-- https://nodepop.jffornieles.tk/apiv1/anuncios
-- https://nodepop.jffornieles.tk/apiv1/anuncios/tags
-- https://nodepop.jffornieles.tk/apiv1/usuarios
-- https://nodepop.jffornieles.tk/apiv1/usuarios/athenticate  
-
-Para más información sobre los métodos GET y POST se puede acceder a la siguiente URL donde se encuentra la documentación elaborada con Postman:  
-https://documenter.getpostman.com/view/5941716/RzthQrAG
-
-Para comprobar que **nginx** sirve los estáticos gracias a la cabecera personalizada **`X-Owner: jffornieles`** se puede acceder a alguna de las siguientes URLs:  
-**https://nodepop.jffornieles.tk/images/anuncios/ipadpro.jpeg** 
-**https://nodepop.jffornieles.tk/images/anuncios/ps4.jpeg**
-
-
 
 
 ## Internacionalización
